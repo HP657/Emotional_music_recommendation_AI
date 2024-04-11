@@ -1,10 +1,10 @@
-package HP657.music.choice;
+package com.example.feelow;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ArtifactApplicationTests {
+class FeelowApplicationTests {
 
 	@Test
 	void contextLoads() {

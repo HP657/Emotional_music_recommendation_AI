@@ -1,13 +1,13 @@
-package HP657.music.choice;
+package com.example.feelow;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ArtifactApplication {
+public class FeelowApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ArtifactApplication.class, args);
+		SpringApplication.run(FeelowApplication.class, args);
 	}
 
 }
