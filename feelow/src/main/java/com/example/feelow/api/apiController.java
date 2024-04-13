@@ -1,2 +1,4 @@
-package com.example.feelow.api;public class apiController {
+package com.example.feelow.api;
+
+public class apiController {
 }
