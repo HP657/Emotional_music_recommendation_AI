@@ -7,7 +7,7 @@ body {
 
 .container {
   width: 80%;
-  max-width: 400px; /* 최대 너비를 설정하여 모바일 화면에 적합하도록 만듭니다. */
+  max-width: 400px; 
   margin: 0 auto;
 }
 
