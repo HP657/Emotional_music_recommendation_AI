@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class controller {
 
-    @GetMapping("")
+    @GetMapping("/")
     public String mainsite() {
-        
+        return "main";
     }
 }
