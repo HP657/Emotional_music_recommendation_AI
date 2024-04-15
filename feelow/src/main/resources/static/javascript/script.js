@@ -1,11 +1,20 @@
 function saveEmotion() {
-    var emotion = document.getElementById("emotionInput").value;
-    var emotionDisplay = document.getElementById("emotionDisplay");
-  
-    if (emotion.trim() !== "") {
-      emotionDisplay.textContent = "오늘의 감정: " + emotion;
-    } else {
-      emotionDisplay.textContent = "감정을 입력해주세요.";
-    }
-  }
-  
+    const inputElement = document.getElementById('emotionInput');
+    const emotion = inputElement.value;
+
+    fetch('/api/recommend', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ emotion: emotion })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('emotionDisplay').textContent = '추천 결과: ' + data.message;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('emotionDisplay').textContent = '추천을 받아오는 데 실패했습니다.';
+    });
+}
