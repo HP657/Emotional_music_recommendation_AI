@@ -18,7 +18,6 @@ public class MainApiController {
     public EmotionResponse recommend(@RequestBody EmotionRequest request) {
         String emotion = request.getEmotion();
         String recommendation = emotionService.processEmotion(emotion);
-        // String recommendation = emotionService.getRecommendationFromPython(emotion); // 파이썬 API 사용 시
         return new EmotionResponse(recommendation);
     }
 }
