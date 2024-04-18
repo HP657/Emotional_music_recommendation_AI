@@ -11,7 +11,7 @@ def search_tracks_by_emotion(emotion, api_key):
         return None
 
 def recommend_tracks_by_emotion(emotion):
-    api_key = 'f690b01ffe76a69f0cea990c04dbb910'
+    api_key = ''
     result = search_tracks_by_emotion(emotion, api_key)
     if result:
         tracks = result['results']['trackmatches']['track']
