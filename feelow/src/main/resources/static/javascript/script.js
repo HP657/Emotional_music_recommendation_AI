@@ -11,10 +11,11 @@ function saveEmotion() {
     })
     .then(response => response.json())
     .then(data => {
-        document.getElementById('emotionDisplay').textContent = '추천 결과: ' + data.message;
+        const parsedData = JSON.parse(data.message);
+        document.getElementById('emotionDisplay').textContent = '감정 예측은: ' + parsedData.emotion;
     })
     .catch(error => {
         console.error('Error:', error);
-        document.getElementById('emotionDisplay').textContent = '추천을 받아오는 데 실패했습니다.';
+        document.getElementById('emotionDisplay').textContent = '글을 좀 더 자세히 적어주세요';
     });
 }

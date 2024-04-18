@@ -1,43 +1,63 @@
 package com.example.feelow.service;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.file.Paths;
 
 @Service
 public class EmotionService {
 
     public String processEmotion(String sentence) {
+        // HttpClient 생성
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        // Flask 서버의 주소
+        String serverUrl = "https://feelow-ai.run.goorm.site/classify";
+
+        // 보낼 데이터
+        String jsonData = "{\"sentence\": \"" + sentence + "\"}";
+
+        // POST 요청 설정
+        HttpPost httpPost = new HttpPost(serverUrl);
+        httpPost.addHeader("Content-Type", "application/json");
+
+        // JSON 데이터를 요청 엔터티로 설정
+        StringEntity requestEntity = new StringEntity(jsonData, ContentType.APPLICATION_JSON);
+        httpPost.setEntity(requestEntity);
+
         try {
-            // 파이썬 스크립트의 경로 설정
-            String pythonScriptPath = Paths.get("AI", "model_result.py").toString();
+            // 요청 보내기
+            CloseableHttpResponse response = httpClient.execute(httpPost);
 
-            // 파이썬 실행 명령 구성
-            ProcessBuilder builder = new ProcessBuilder("python", "../../../../resources/AI/model_result.py", sentence);
-            builder.redirectErrorStream(true); // 표준 오류를 표준 출력에 병합
-
-            // 프로세스 시작
-            Process process = builder.start();
-
-            // 결과 읽기
-            StringBuilder output = new StringBuilder();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
+            // 응답 확인
+            if (response.getStatusLine().getStatusCode() == 200) {
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    // 응답 본문 읽기
+                    String responseString = EntityUtils.toString(entity);
+                    return responseString;
+                }
+            } else {
+                System.out.println("서버 응답 실패: " + response.getStatusLine().getStatusCode());
             }
-
-            // 프로세스 종료 대기
-            int exitCode = process.waitFor();
-            if (exitCode != 0) {
-                throw new RuntimeException("파이썬 스크립트 실행 중 오류 발생, 종료 코드: " + exitCode);
-            }
-
-            // 파이썬 스크립트로부터 받은 출력 반환
-            return output.toString().trim(); // 출력 문자열의 앞뒤 공백 제거
         } catch (Exception e) {
             e.printStackTrace();
-            return "파이썬 스크립트 실행 중 오류 발생: " + e.getMessage();
+        } finally {
+            try {
+                // HttpClient 닫기
+                httpClient.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+        // 실패 시 기본값 반환
+        return "감정 분석 실패";
     }
 }
