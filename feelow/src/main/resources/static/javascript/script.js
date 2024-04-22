@@ -12,7 +12,8 @@ function saveEmotion() {
     .then(response => response.json())
     .then(data => {
         const parsedData = JSON.parse(data.message);
-        document.getElementById('emotionDisplay').textContent = '감정 예측은: ' + parsedData.emotion;
+//        document.getElementById('emotionDisplay').textContent = '감정 예측은: ' + parsedData.emotion;
+        document.getElementById('emotionDisplay').textContent = '감정 예측은: ' + parsedData.recommended_track;
     })
     .catch(error => {
         console.error('Error:', error);

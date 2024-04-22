@@ -10,13 +10,10 @@ public class EmotionService {
     private PostService postService;
 
     public String processEmotion(String sentence) {
-        // 서버의 주소
-        String serverUrl = "https://feelow-ai.run.goorm.site/classify";
+        String serverUrl = "https://feelow-ai.run.goorm.site/recommend_song";
 
-        // 보낼 데이터
         String jsonData = "{\"sentence\": \"" + sentence + "\"}";
 
-        // POST 요청 보내기
         return postService.sendPostRequest(serverUrl, jsonData, "Emotion 분석");
     }
 }
