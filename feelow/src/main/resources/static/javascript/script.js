@@ -1,22 +1,33 @@
 function saveEmotion() {
-    const inputElement = document.getElementById('emotionInput');
-    const emotion = inputElement.value;
-
-    fetch('/api/recommend', {
+    let emotionText = document.getElementById('emotionInput').value;
+    fetch('https://feelow-ai.run.goorm.site/recommend_song', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ emotion: emotion })
+        body: JSON.stringify({ sentence: emotionText })
     })
     .then(response => response.json())
     .then(data => {
-        const parsedData = JSON.parse(data.message);
-//        document.getElementById('emotionDisplay').textContent = '감정 예측은: ' + parsedData.emotion;
-        document.getElementById('emotionDisplay').textContent = '감정 예측은: ' + parsedData.recommended_track;
+        console.log(data);
+        document.getElementById('emotionDisplay').textContent = `감정: ${data.emotion}`;
+        if (data.recommended_track && data.recommended_artist) {
+            document.getElementById('trackInfo').textContent = `추천 곡: ${data.recommended_track} by ${data.recommended_artist}`;
+            var albumCover = document.getElementById('albumCover');
+            if (data.album_cover_url && data.album_cover_url !== "Album cover not found") {
+                albumCover.src = data.album_cover_url;
+                albumCover.style.display = 'block';
+                albumCover.alt = `Album cover of ${data.recommended_track}`;
+            } else {
+                albumCover.style.display = 'none';
+                albumCover.alt = 'No album cover available';
+            }
+        } else {
+            document.getElementById('trackInfo').textContent = "추천 곡을 찾을 수 없습니다.";
+            document.getElementById('albumCover').style.display = 'none';
+        }
     })
     .catch(error => {
         console.error('Error:', error);
-        document.getElementById('emotionDisplay').textContent = '글을 좀 더 자세히 적어주세요';
     });
 }
