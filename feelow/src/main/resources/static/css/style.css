@@ -49,14 +49,14 @@ p {
     font-size: 18px;
 }
 
-#resulta {
+.resulta {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px; 
 }
 
-#texta {
+.texta {
     text-align: left;
     max-width: calc(100% - 120px);
     order: 2;
