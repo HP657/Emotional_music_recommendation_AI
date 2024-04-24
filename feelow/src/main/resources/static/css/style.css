@@ -49,9 +49,23 @@ p {
     font-size: 18px;
 }
 
+#resulta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; 
+}
+
+#texta {
+    text-align: left;
+    max-width: calc(100% - 120px);
+    order: 2;
+}
+
 img {
-    max-width: 100%;
+    max-width: 100px;
     height: auto;
     margin-top: 20px;
     border-radius: 8px;
+    order: 1;
 }
