@@ -1,4 +1,5 @@
-function saveEmotion() {
+function saveEmotion(event) {
+    document.getElementById('loading').style.display = 'block';
     let emotionText = document.getElementById('emotionInput').value;
     fetch('https://feelow-ai.run.goorm.site/recommend_song', {
         method: 'POST',
@@ -9,6 +10,7 @@ function saveEmotion() {
     })
     .then(response => response.json())
     .then(data => {
+        document.getElementById('loading').style.display = 'none';
         console.log(data);
         document.getElementById('emotionDisplay').textContent = `감정: ${data.emotion}`;
         if (data.recommended_track && data.recommended_artist) {
@@ -29,5 +31,6 @@ function saveEmotion() {
     })
     .catch(error => {
         console.error('Error:', error);
+        document.getElementById('loading').style.display = 'none';
     });
 }

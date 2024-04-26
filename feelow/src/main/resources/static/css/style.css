@@ -69,3 +69,31 @@ img {
     border-radius: 8px;
     order: 1;
 }
+#loading {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: block;
+    opacity: 0.6;
+    background: #e4e4e4;
+    z-index: 99;
+    text-align: center;
+}
+
+#loading > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    transform: translate(-50%, -50%); /* 중앙 정렬 */
+}
+
+#loading > p {
+    position: absolute;
+    top: 60%; /* 이미지 아래 적당한 위치 조정 */
+    left: 50%;
+    z-index: 101;
+    transform: translateX(-50%); /* X축 기준 중앙 정렬 */
+}
