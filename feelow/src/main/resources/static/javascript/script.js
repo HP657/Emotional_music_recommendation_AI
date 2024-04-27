@@ -34,3 +34,15 @@ function saveEmotion(event) {
         document.getElementById('loading').style.display = 'none';
     });
 }
+
+
+window.addEventListener('load', function() {
+    var start = document.getElementById('start');
+    setTimeout(function() {
+        start.style.opacity = '0';
+        setTimeout(function() {
+            start.style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        }, 500);
+    }, 1500);
+});

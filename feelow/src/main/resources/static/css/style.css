@@ -97,3 +97,24 @@ img {
     z-index: 101;
     transform: translateX(-50%); /* X축 기준 중앙 정렬 */
 }
+
+#start {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #fff; /* 배경색을 원하는 색으로 변경 가능 */
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    opacity: 1; /* 시작할 때 투명도는 100% */
+    transition: opacity 1s ease; /* 투명도 변경에 대한 전환 효과 */
+}
+
+.logo {
+    width: 150px; /* 로고 크기 조정 */
+    height: auto;
+}
+
+#content {
+    padding: 20px;
+}
