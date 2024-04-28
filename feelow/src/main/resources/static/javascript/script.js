@@ -42,7 +42,7 @@ window.addEventListener('load', function() {
         start.style.opacity = '0';
         setTimeout(function() {
             start.style.display = 'none';
-            document.getElementById('content').style.display = 'block';
+            document.getElementById('header').style.display = 'block';
         }, 500);
     }, 1500);
 });

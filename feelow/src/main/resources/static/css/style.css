@@ -75,6 +75,7 @@ button:hover, button:focus {
 .texta {
     text-align: left;
     max-width: calc(100% - 120px);
+    order: 2;
 }
 
 img {
@@ -82,6 +83,7 @@ img {
     height: auto;
     margin-top: 20px;
     border-radius: 8px;
+    order: 1;
 }
 
 #loading {
