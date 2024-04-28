@@ -8,12 +8,12 @@ body {
     padding: 0;
 }
 
-.header {
+#header {
     text-align: center;
     padding: 20px 0;
 }
 
-.header-logo {
+#header-logo {
     width: 200px;
 }
 
