@@ -1,7 +1,7 @@
 function saveEmotion(event) {
     document.getElementById('loading').style.display = 'block';
     let emotionText = document.getElementById('emotionInput').value;
-    fetch('https://feelow-ai.run.goorm.site/recommend_song', {
+    fetch('http://localhost:8080/api/recommend', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -10,23 +10,25 @@ function saveEmotion(event) {
     })
     .then(response => response.json())
     .then(data => {
+        const responseData = JSON.parse(data.message);
         document.getElementById('loading').style.display = 'none';
-        console.log(data);
-        document.getElementById('emotionDisplay').textContent = `감정: ${data.emotion}`;
-        if (data.recommended_track && data.recommended_artist) {
-            document.getElementById('trackInfo').textContent = `추천 곡: ${data.recommended_track} by ${data.recommended_artist}`;
-            var albumCover = document.getElementById('albumCover');
-            if (data.album_cover_url && data.album_cover_url !== "Album cover not found") {
-                albumCover.src = data.album_cover_url;
-                albumCover.style.display = 'block';
-                albumCover.alt = `Album cover of ${data.recommended_track}`;
-            } else {
-                albumCover.style.display = 'none';
-                albumCover.alt = 'No album cover available';
-            }
+
+        document.getElementById('emotionDisplay').textContent = `감정: ${responseData.emotion}`;
+
+        if (responseData.recommended_track && responseData.recommended_artist) {
+            document.getElementById('trackInfo').textContent = `추천 곡: ${responseData.recommended_track} by ${responseData.recommended_artist}`;
         } else {
             document.getElementById('trackInfo').textContent = "추천 곡을 찾을 수 없습니다.";
-            document.getElementById('albumCover').style.display = 'none';
+        }
+
+        var albumCover = document.getElementById('albumCover');
+        if (responseData.album_cover_url && responseData.album_cover_url !== "Album cover not found") {
+            albumCover.src = responseData.album_cover_url;
+            albumCover.style.display = 'block';
+            albumCover.alt = `Album cover of ${responseData.recommended_track}`;
+        } else {
+            albumCover.style.display = 'none';
+            albumCover.alt = 'No album cover available';
         }
     })
     .catch(error => {
@@ -34,7 +36,6 @@ function saveEmotion(event) {
         document.getElementById('loading').style.display = 'none';
     });
 }
-
 
 window.addEventListener('load', function() {
     var start = document.getElementById('start');
