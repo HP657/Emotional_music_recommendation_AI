@@ -1,13 +1,13 @@
 package com.example.feelow.dto;
 
 public class EmotionRequest {
-    private String emotion;
+    private String sentence;
 
-    public String getEmotion() {
-        return emotion;
+    public String getSentence() {
+        return sentence;
     }
 
     public void setEmotion(String emotion) {
-        this.emotion = emotion;
+        this.sentence = sentence;
     }
 }
